@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export const TodoType = {
+export const TodoType = PropTypes.shape({
   name: PropTypes.string.isRequired,
-};
+});
 
 class TodoItem extends Component {
   static propTypes = {

@@ -1,0 +1,51 @@
+.App
+  text-align: center;
+  background-color: #fafafa;
+
+.App-logo
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+
+.todo-navbar
+  background-color: #db4c3f;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+
+.todo-list
+  background-color: #fff;
+
+.is-sidebar-menu
+  padding: 2.5rem
+
+$navbar-height: 3.25rem
+
+.navbar-icons
+  margin-right: 8px;
+
+.menu-list
+  li
+    float: left;
+
+.columns
+  &.is-fullheight
+    min-height: calc(100vh - ( #{$navbar-height} - .75rem ) )
+    max-height: calc(100vh - ( #{$navbar-height} - .75rem ) )
+
+.App-header
+  background-color: #1f1f1f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+.App-link
+  color: #61dafb;
+
+@keyframes App-logo-spin
+  from
+    transform: rotate(0deg);
+
+  to
+    transform: rotate(360deg);

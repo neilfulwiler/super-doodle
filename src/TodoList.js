@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import logo from './logo.svg';
-import './App.css';
-import TodoItem, { TodoType} from './TodoItem';
+import TodoItem, { TodoType } from './TodoItem';
 
 class TodoList extends Component {
   static propTypes = {
-    todos: PropTypes.arrayOf(TodoType),
+    todos: PropTypes.arrayOf(TodoType).isRequired,
   }
 
   render() {
     return (
-      <ul>
-      {this.props.todos.map(todo => (
-        <li>
-          <TodoItem todo={todo} />
-        </li>
-      ))}
-      </ul>
+      <div>
+        <ul>
+        {this.props.todos.map((todo, index) => (
+          <li key={index}>
+            <TodoItem todo={todo} />
+          </li>
+        ))}
+        </ul>
+      </div>
     );
   }
 }
