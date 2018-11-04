@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
+import TodoList from './TodoList';
+import Menu from './Menu';
 import logo from './logo.svg';
-import './App.css';
+import './App.sass';
+
+const todos = [
+  {name: 'do laundry'},
+  {name: 'write some code'},
+  {name: 'clean my room'},
+];
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="todo-navbar navbar" >
+          <i class="fas fa-bell" />
+        </div>
+        <div className="container">
+          <div class="columns is-fullheight">
+            <Menu />
+            <div class="todo-list column is-main-content">
+              <TodoList todos={todos} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
