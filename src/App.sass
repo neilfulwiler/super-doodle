@@ -58,6 +58,65 @@ $navbar-height: 3.25rem
 .add-task-no-hover
   color: #808080
 
+.my-task-table
+  border-radius: 3px
+  border: 1px solid #ddd
+  padding: 1px
+
+  .my-placeholder
+    position: absolute
+    padding-left: .5em
+    padding-top: .25em
+    color: #ccc
+    pointer-events: none
+    animation: fadein 200ms
+
+  td
+    vertical-align: baseline
+
+  input
+    padding: .5em
+    border: none
+    font-size: inherit
+    outline: none
+
+  #date
+    padding: .5em
+    border-left: 1px solid #eee
+
+  .input-default-value
+    color: grey
+
+.my-submit-table
+  margin-top: 1em
+
+  .my-add-task-button
+    color: white
+    font-weight: 400 
+    background: #db4c3f
+    border: none
+
+  .my-cancel-button
+    border: none
+
+  .submit
+    text-align: left
+
+    span
+      vertical-align: center
+
+
+  .extra
+    text-align: right
+
+    .icons
+      cursor: pointer
+      opacity: .5
+      margin-left: 3em
+
+    .icons:hover
+      opacity: 1
+
 @keyframes App-logo-spin
   from
     transform: rotate(0deg)
@@ -65,3 +124,8 @@ $navbar-height: 3.25rem
   to
     transform: rotate(360deg)
 
+@keyframes fadein
+    from
+      opacity: 0
+    to
+      opacity: 1
