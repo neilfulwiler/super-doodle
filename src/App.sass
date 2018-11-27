@@ -1,3 +1,6 @@
+$redlike: #db4c3f
+$navbar-height: 3.25rem
+
 .App
   text-align: center
   background-color: #fafafa
@@ -7,7 +10,7 @@
   height: 40vmin
 
 .todo-navbar
-  background-color: #db4c3f;
+  background-color: $redlike
   box-shadow: 0 1px 2px rgba(0,0,0,0.15)
 
 .my-small-text
@@ -15,8 +18,6 @@
 
 .is-sidebar-menu
   padding: 2.5rem
-
-$navbar-height: 3.25rem
 
 .navbar-icons
   margin-right: 8px
@@ -49,6 +50,69 @@ $navbar-height: 3.25rem
   border-left: 1px solid #f1f1f1
   border-right: 1px solid #f1f1f1
 
+/* INBOX */
+
+.inbox-title
+  display: flex
+  justify-content: space-between
+  margin-bottom: 12px
+
+.inbox-title-right
+  display: flex
+  margin-top: -4px
+  align-items: center
+
+.inbox-title-right-item
+  cursor: pointer
+  flex: 1 
+
+.inbox-container
+  text-align: left
+
+.my-todo
+  padding-top: 1em
+  padding-bottom: 1em
+  border-bottom: 1px solid #f1f1f1
+  display: flex
+  width: 100%
+
+.my-todo-circle
+  cursor: pointer
+  text-align: left
+
+.my-todo-check-mark
+  width: 1px
+  font-size: 8px
+  opacity: 0
+  transition: .3s
+  margin-left: -12px
+  margin-top: 6px
+  cursor: pointer
+
+.my-todo-check-mark:hover
+  opacity: 1
+
+.my-todo-name
+  padding-left: 2em
+
+.my-todo-comment
+  padding-left: 2em
+  cursor: pointer
+
+.my-todo-moving-grip
+  cursor: all-scroll
+  margin-top: 1em
+  padding-right: 1em
+
+.my-todo-ellipsis
+  cursor: pointer
+  vertical-align: center
+  margin-top: 1em
+  margin-right: -1.25em
+
+
+/* TODAY */
+
 .today-container
   text-align: left
 
@@ -57,6 +121,9 @@ $navbar-height: 3.25rem
 
 .add-task-no-hover
   color: #808080
+
+.add-task-icon
+  color: $redlike
 
 .my-task-table
   border-radius: 3px
@@ -96,8 +163,14 @@ $navbar-height: 3.25rem
     background: #db4c3f
     border: none
 
+  .my-add-task-button:hover
+    background: darken(#db4c3f, 10%)
+
   .my-cancel-button
     border: none
+
+  .my-cancel-button:hover
+    text-decoration: underline
 
   .submit
     text-align: left

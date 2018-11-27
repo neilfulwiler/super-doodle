@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TodoList from './TodoList';
+import Inbox from './Inbox';
 import Today from './Today';
 import Menu from './Menu';
 import './App.sass';
@@ -12,7 +12,7 @@ const todos = [
 
 class App extends Component {
   state = {
-    selected: 'Today',
+    selected: 'Inbox',
   };
 
   render() {
@@ -21,7 +21,7 @@ class App extends Component {
     if (selected === 'Today') {
       content = <Today />;
     } else {
-      content = <TodoList todos={todos} />;
+      content = <Inbox todos={todos} />;
     }
     return (
       <div className="App">
