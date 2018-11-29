@@ -1,26 +1,62 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { TodoType } from './TodoItem';
 
 class Menu extends Component {
   static propTypes = {
     onSelect: PropTypes.func.isRequired,
+    selected: PropTypes.string.isRequired,
+    todos: PropTypes.arrayOf(TodoType).isRequired,
+  };
+
+  state = {
+    highlighted: null,
   };
 
   render() {
-    const select = item => () => this.props.onSelect(item);
+    const {onSelect, selected, todos} = this.props;
+    const {highlighted} = this.state;
+
+    const menuItems = [
+      [
+        "Inbox",
+        <span className="navbar-icons fas fa-inbox"/>, 
+        <span className="is-size-7" style={{color: "#777", paddingLeft: "1em"}}>{todos.length}</span>
+      ],
+      ["Today", <span className="navbar-icons fas fa-calendar"/>],
+      ["Next 7 Days", <span className="navbar-icons fas fa-calendar-alt"/>],
+      ["Projects", <span className="navbar-icons fas fa-caret-right"/>],
+      ["Labels", <span className="navbar-icons fas fa-caret-right"/>],
+      ["Filters", <span className="navbar-icons fas fa-caret-right"/>],
+    ];
+
     return (
-    <div className="column is-2 is-sidebar-menu is-hidden-mobile">
-      <aside className="menu">
-      <ul className="menu-list">
-        <li><a onClick={select("Inbox")}><span className="navbar-icons fas fa-inbox"/>Inbox</a></li>
-        <li><a onClick={select("Today")}><span className="navbar-icons fas fa-calendar"/>Today</a></li>
-        <li><a onClick={select("Next 7 Days")}><span className="navbar-icons fas fa-calendar-alt"/>Next 7 Days</a></li>
-        <li><a onClick={select("Projects")}><span className="navbar-icons fas fa-caret-right"/>Projects</a></li>
-        <li><a onClick={select("Lables")}><span className="navbar-icons fas fa-caret-right"/>Labels</a></li>
-        <li><a onClick={select("Filters")}><span className="navbar-icons fas fa-caret-right"/>Filters</a></li>
-      </ul>
-      </aside>
-    </div>);
+      <div className="column is-2 is-sidebar-menu is-hidden-mobile" style={{paddingRight: "0px"}}>
+        <aside className="menu">
+        <ul className="menu-list">
+          {menuItems.map(([name, icon, extra]) => (
+            <li 
+              key={name}
+              onMouseEnter={() => this.setState(state => ({ highlighted: name }))}
+              onMouseLeave={() => this.setState(state => {
+                if (state.highlighted === name) {
+                  return { highlighted: null};
+                } else {
+                  return state;
+                }
+              })}
+            >
+              <a 
+                className={[highlighted, selected].includes(name) ? "highlighted" : ""}
+                onClick={() => onSelect(name)}
+              >
+                {icon}{name}{extra}
+              </a>
+            </li>
+          ))}
+        </ul>
+        </aside>
+      </div>);
   }
 }
 

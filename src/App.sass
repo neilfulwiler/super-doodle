@@ -1,5 +1,6 @@
 $redlike: #db4c3f
 $navbar-height: 3.25rem
+$whitelike: #fff
 
 .App
   text-align: center
@@ -23,8 +24,15 @@ $navbar-height: 3.25rem
   margin-right: 8px
 
 .menu-list
+  display: flex
+  flex-direction: column
+
   li
-    float: left
+    text-align: left
+
+    a.highlighted
+      background-color: $whitelike
+
 
 .columns
   &.is-fullheight
@@ -45,7 +53,7 @@ $navbar-height: 3.25rem
   color: #61dafb
 
 .my-content
-  background-color: #fff
+  background-color: $whitelike
   padding: 40px
   border-left: 1px solid #f1f1f1
   border-right: 1px solid #f1f1f1

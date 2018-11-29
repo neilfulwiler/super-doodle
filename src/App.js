@@ -30,7 +30,11 @@ class App extends Component {
         </div>
         <div className="container my-container">
           <div className="columns is-fullheight">
-            <Menu onSelect={selected => this.setState({selected}) }/>
+            <Menu 
+              onSelect={selected => this.setState({selected}) }
+              selected={selected}
+              todos={todos}
+            />
             <div className="container my-content">
               {content}
             </div>
