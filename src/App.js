@@ -1,27 +1,46 @@
 import React, { Component } from 'react';
-import TodoList from './TodoList';
+import PropTypes from 'prop-types';
+import Inbox from './Inbox';
+import Today from './Today';
 import Menu from './Menu';
-import logo from './logo.svg';
+import { TodoType } from './TodoItem';
+import { connect } from 'react-redux';
 import './App.sass';
 
-const todos = [
-  {name: 'do laundry'},
-  {name: 'write some code'},
-  {name: 'clean my room'},
-];
-
 class App extends Component {
+  static propTypes = {
+    todos: PropTypes.arrayOf(TodoType).required,
+  };
+
+  state = {
+    selected: 'Inbox',
+  };
+
   render() {
+    const {todos} = this.props;
+    const {selected} = this.state;
+
+    var content;
+    if (selected === 'Today') {
+      content = <Today />;
+    } else {
+      content = <Inbox todos={todos} />;
+    }
+
     return (
       <div className="App">
         <div className="todo-navbar navbar" >
-          <i class="fas fa-bell" />
+          <i className="fas fa-bell" />
         </div>
-        <div className="container">
-          <div class="columns is-fullheight">
-            <Menu />
-            <div class="todo-list column is-main-content">
-              <TodoList todos={todos} />
+        <div className="container my-container">
+          <div className="columns is-fullheight">
+            <Menu 
+              onSelect={selected => this.setState({selected}) }
+              selected={selected}
+              todos={todos}
+            />
+            <div className="container my-content">
+              {content}
             </div>
           </div>
         </div>
@@ -30,4 +49,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = function(state) {
+  return {
+    todos: state.todos,
+  };
+}
+
+export default connect(mapStateToProps)(App);
