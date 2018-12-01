@@ -33,14 +33,14 @@ class App extends Component {
         <div className="columns">
           <div className="column is-2" style={{textAlign: "left", paddingLeft: "52px"}}>
             <div style={{paddingTop: "10px"}}>
-              <i style={{color: "white"}} class="fa fa-wrench" aria-hidden="true"></i>
+              <i style={{color: "white"}} className="fa fa-wrench" aria-hidden="true"></i>
             </div>
           </div>
           <div className="column">
             <div style={{display: "flex", justifyContent: "space-between"}}>
               <div style={{display: "flex", alignItems: "baseline"}}>
                 <div style={{paddingTop: "10px", paddingLeft: "40px"}}>
-                  <i style={{color: "white"}} class="fa fa-search" aria-hidden="true"></i>
+                  <i style={{color: "white"}} className="fa fa-search" aria-hidden="true"></i>
                 </div>
                 <span 
                   style={{paddingTop: "10px", paddingLeft: "1em", marginTop: "-2px"}}
@@ -49,10 +49,10 @@ class App extends Component {
               </div>
               <div style={{display: "flex", justifyContent: "flex-end"}}>
                 <span style={{paddingTop: "10px", textAlign: "right"}}>
-                  <i style={{color: "white"}} class="fa fa-bell" aria-hidden="true"></i>
+                  <i style={{color: "white"}} className="fa fa-bell" aria-hidden="true"></i>
                 </span>
                 <span style={{paddingTop: "10px", textAlign: "right", paddingLeft: "2em"}}>
-                  <i style={{color: "white"}} class="fa fa-cog" aria-hidden="true"></i>
+                  <i style={{color: "white"}} className="fa fa-cog" aria-hidden="true"></i>
                 </span>
               </div>
             </div>

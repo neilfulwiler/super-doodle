@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { completeTodo } from './actions';
 
 export const TodoType = PropTypes.shape({
   name: PropTypes.string.isRequired,
@@ -18,7 +20,8 @@ function getDay(date: Date): String {
 
 class TodoItem extends Component {
   static propTypes = {
-    todo: TodoType,
+    todo: TodoType.isRequired,
+    completeTodo: PropTypes.func.isRequired,
   }
 
   state = {
@@ -34,7 +37,8 @@ class TodoItem extends Component {
   render() {
     const {hover} = this.state;
     const showOnHover = hover ? {} : { visibility: "hidden" }
-    const {name, due} = this.props.todo;
+    const {todo, completeTodo} = this.props;
+    const {name, due} = todo;
     var day;
     if (getDay(due) === getDay(now())) {
       day = (<span>
@@ -57,8 +61,10 @@ class TodoItem extends Component {
         <span className="my-todo-moving-grip" style={showOnHover}><i className="fas fa-grip-vertical"></i></span>
         <span className="my-todo" style={{display: "flex", justifyContent: "space-between"}}>
           <span style={{flex: "1", display: "flex"}}>
-            <span className="my-todo-circle"><i className="far fa-circle"></i></span>
-            <span className="my-todo-check-mark"><i className="fas fa-check"></i></span>
+            <span onClick={() => completeTodo(name)}>
+              <span className="my-todo-circle"><i className="far fa-circle"></i></span>
+              <span className="my-todo-check-mark"><i className="fas fa-check"></i></span>
+            </span>
             <div className="my-todo-name">{name}</div>
             <span className="my-todo-comment" style={showOnHover}><i className="far fa-comment-alt"></i></span>
           </span>
@@ -72,4 +78,8 @@ class TodoItem extends Component {
   }
 }
 
-export default TodoItem;
+const mapDispatchToProps = {
+  completeTodo,
+};
+
+export default connect(null, mapDispatchToProps)(TodoItem);

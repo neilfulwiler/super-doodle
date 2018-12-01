@@ -19,6 +19,9 @@ const store = createStore((state = initialState, action) => {
     case "ADD_TODO":
       return {...state, todos: state.todos.concat({name: action.name, due: action.due})};
 
+    case "COMPLETE_TODO":
+      return {...state, todos: state.todos.filter(todo => todo.name !== action.name)};
+
     default:
       return state;
   }
