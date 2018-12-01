@@ -8,16 +8,16 @@ import { createStore } from 'redux';
 
 const initialState = {
   todos: [
-    {name: 'do laundry'},
-    {name: 'write some code'},
-    {name: 'clean my room'},
+    {name: 'do laundry', due: new Date(Date.now())},
+    {name: 'write some code', due: new Date(Date.parse("November 30, 2018"))},
+    {name: 'clean my room', due: new Date(Date.parse("December 31, 2018"))},
   ],
 };
 
 const store = createStore((state = initialState, action) => {
   switch (action.type) {
     case "ADD_TODO":
-      return {...state, todos: state.todos.concat({name: action.name})};
+      return {...state, todos: state.todos.concat({name: action.name, due: action.due})};
 
     default:
       return state;

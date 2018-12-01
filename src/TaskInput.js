@@ -15,8 +15,20 @@ class TaskInput extends Component {
   };
 
   onChange(e) {
+    console.log(e);
     const {value} = e.currentTarget;
     this.setState({value});
+  }
+
+  submit() {
+    const {value} = this.state;
+    const {addTodo} = this.props;
+    if (!value) {
+      // don't do anything if there's no input
+      return;
+    }
+    addTodo(value, new Date(Date.now()));
+    this.setState({ value: '' });
   }
 
   renderInput() {
@@ -37,9 +49,11 @@ class TaskInput extends Component {
               <input 
                 tabIndex="1"
                 value={value}
+                onKeyPress={e => { if (e.key === 'Enter') { this.submit(); }}}
                 onChange={e => this.onChange(e)}
                 className="my-input"
-                style={{width: "100%"}}/>
+                style={{width: "100%"}}
+                ref={ref => { this.inputRef = ref; }}/>
             </td>
             <td>
               <div id="date">{now.format("MMM D")}</div>
@@ -52,7 +66,7 @@ class TaskInput extends Component {
   }
 
   renderButtons() {
-    const {addTodo, onCancel} = this.props;
+    const {onCancel} = this.props;
     return (
       <table style={{width: "100%"}} className="my-submit-table">
         <tbody>
@@ -60,11 +74,16 @@ class TaskInput extends Component {
           <td className="submit">
             <a 
               className="button my-add-task-button"
-              onClick={() => { addTodo("whats up"); }}
-              >Add Task</a>
+              onClick={() => {
+                this.submit();
+                if (this.inputRef !== null) {
+                  this.inputRef.focus();
+                }
+              }}
+            >Add Task</a>
             <a 
               className="button my-cancel-button"
-              onClick={() => onCancel()}
+              onClick={onCancel}
             >Cancel</a>
           </td>
           <td className="extra">
