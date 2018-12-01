@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TodoType } from './TodoItem';
+import classNames from 'classnames';
 
 class Menu extends Component {
   static propTypes = {
@@ -47,10 +48,10 @@ class Menu extends Component {
               })}
             >
               <a 
-                className={[highlighted, selected].includes(name) ? "highlighted" : ""}
+                className={classNames({"highlighted": [highlighted, selected].includes(name)})}
                 onClick={() => onSelect(name)}
               >
-                {icon}{name}{extra}
+                {icon}<span className={classNames({"is-bold": selected === name})}>{name}</span>{extra}
               </a>
             </li>
           ))}
