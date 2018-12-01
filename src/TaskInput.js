@@ -53,6 +53,7 @@ class TaskInput extends Component {
 
   renderButtons() {
     const {addTodo, onCancel} = this.props;
+    const {value} = this.state;
     return (
       <table style={{width: "100%"}} className="my-submit-table">
         <tbody>
@@ -60,7 +61,14 @@ class TaskInput extends Component {
           <td className="submit">
             <a 
               className="button my-add-task-button"
-              onClick={() => { addTodo("whats up"); }}
+              onClick={() => { 
+                if (!value) {
+                  // don't do anything if there's no input
+                  return;
+                }
+                addTodo(value); 
+                this.setState({ value: '' });
+              }}
               >Add Task</a>
             <a 
               className="button my-cancel-button"
