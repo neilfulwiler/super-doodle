@@ -29,14 +29,14 @@ class TodoItem extends Component {
         onMouseLeave={() => this.toggleHover()}
         style={{display: "flex"}}
       >
-        <span className="my-todo-moving-grip" style={showOnHover}><i class="fas fa-grip-vertical"></i></span>
+        <span className="my-todo-moving-grip" style={showOnHover}><i className="fas fa-grip-vertical"></i></span>
         <span className="my-todo">
-          <span className="my-todo-circle"><i class="far fa-circle"></i></span>
-          <span className="my-todo-check-mark"><i class="fas fa-check"></i></span>
+          <span className="my-todo-circle"><i className="far fa-circle"></i></span>
+          <span className="my-todo-check-mark"><i className="fas fa-check"></i></span>
           <div className="my-todo-name">{this.props.todo.name}</div>
-          <span className="my-todo-comment" style={showOnHover}><i class="far fa-comment-alt"></i></span>
+          <span className="my-todo-comment" style={showOnHover}><i className="far fa-comment-alt"></i></span>
         </span>
-        <span className="my-todo-ellipsis" style={showOnHover}><i class="fas fa-ellipsis-h"></i></span>
+        <span className="my-todo-ellipsis" style={showOnHover}><i className="fas fa-ellipsis-h"></i></span>
       </div>
     );
   }

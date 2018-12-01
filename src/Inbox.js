@@ -17,10 +17,10 @@ class Inbox extends Component {
           <span className="is-size-4" style={{paddingTop: "6px"}}>Inbox</span>
           <div className="inbox-title-right">
             <div className="inbox-title-right-item" style={{fontSize: "14px", marginTop: ".4em"}}>
-              <i class="far fa-comment-alt"></i>
+              <i className="far fa-comment-alt"></i>
             </div>
             <div className="inbox-title-right-item" style={{paddingLeft: "1em", marginTop: "-.1em"}}>
-              <img src="/ellipsis.png" style={{width: "20px"}}/>
+              <img src="/ellipsis.png" alt="" style={{width: "20px"}}/>
             </div>
           </div>
         </div>

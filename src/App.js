@@ -9,7 +9,7 @@ import './App.sass';
 
 class App extends Component {
   static propTypes = {
-    todos: PropTypes.arrayOf(TodoType).required,
+    todos: PropTypes.arrayOf(TodoType).isRequired,
   };
 
   state = {
