@@ -1,7 +1,6 @@
 export const addTodo = (name, due) => ({
-  name,
-  due,
-  type: 'ADD_TODO'
+  todos: [{name, due}],
+  type: 'ADD_TODOS'
 });
 
 export const completeTodo = (name) => ({

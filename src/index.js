@@ -7,17 +7,13 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 const initialState = {
-  todos: [
-    {name: 'do laundry', due: new Date(Date.now())},
-    {name: 'write some code', due: new Date(Date.parse("November 30, 2018"))},
-    {name: 'clean my room', due: new Date(Date.parse("December 31, 2018"))},
-  ],
+  todos: [],
 };
 
 const store = createStore((state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TODO":
-      return {...state, todos: state.todos.concat({name: action.name, due: action.due})};
+    case "ADD_TODOS":
+      return {...state, todos: state.todos.concat(action.todos)};
 
     case "COMPLETE_TODO":
       return {...state, todos: state.todos.filter(todo => todo.name !== action.name)};
@@ -37,3 +33,9 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+fetch('/api/todos')
+  .then(response => response.json())
+  .then(response => store.dispatch({
+    type: "ADD_TODOS",
+    todos: response.todos.map(({name, dueNumber}) => ({name, due: new Date(dueNumber)}))}));
