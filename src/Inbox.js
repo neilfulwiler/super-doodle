@@ -29,8 +29,8 @@ class Inbox extends Component {
           </div>
         </div>
         <ul style={{marginLeft: "-1.70em"}}>
-        {this.props.todos.map((todo, index) => (
-          <li key={index}>
+        {this.props.todos.map(todo => (
+          <li key={todo.name}>
             <TodoItem todo={todo} />
           </li>
         ))}

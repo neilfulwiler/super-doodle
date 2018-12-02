@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { completeTodo } from './actions';
+
 
 export const TodoType = PropTypes.shape({
   name: PropTypes.string.isRequired,
@@ -26,6 +28,7 @@ class TodoItem extends Component {
 
   state = {
     hover: false,
+    exiting: undefined,
   }
 
   toggleHover() {
@@ -35,7 +38,7 @@ class TodoItem extends Component {
   }
 
   render() {
-    const {hover} = this.state;
+    const {hover, exiting} = this.state;
     const showOnHover = hover ? {} : { visibility: "hidden" }
     const {todo, completeTodo} = this.props;
     const {name, due} = todo;
@@ -52,19 +55,31 @@ class TodoItem extends Component {
     } else {
       day = [];
     }
+
     return (
       <div 
         onMouseEnter={() => this.toggleHover()}
         onMouseLeave={() => this.toggleHover()}
-        style={{display: "flex", cursor: "text"}}
+        style={{
+          display: "flex",
+          cursor: "text",
+        }}
+        className={classNames("my-todo-container", {exiting})}
       >
         <span className="my-todo-moving-grip" style={showOnHover}><i className="fas fa-grip-vertical"></i></span>
         <span className="my-todo" style={{display: "flex", justifyContent: "space-between"}}>
           <span style={{flex: "1", display: "flex"}}>
-            <span onClick={() => completeTodo(name)}>
+            <div onClick={() => { 
+              this.setState({ exiting: true });
+              setTimeout(() => completeTodo(name), 500);
+            }}>
               <span className="my-todo-circle"><i className="far fa-circle"></i></span>
-              <span className="my-todo-check-mark"><i className="fas fa-check"></i></span>
-            </span>
+              <div style={{display: "inline", paddingTop: "10px"}}>
+                <span className="my-todo-check-mark">
+                  <i className="fas fa-check"></i>
+                </span>
+              </div>
+            </div>
             <div className="my-todo-name">{name}</div>
             <span className="my-todo-comment" style={showOnHover}><i className="far fa-comment-alt"></i></span>
           </span>
