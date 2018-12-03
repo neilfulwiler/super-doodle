@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesome from 'react-fontawesome'
 import TaskInput from './TaskInput';
+import { connect } from 'react-redux';
+import { addTodo } from './actions';
 
 class AddTask extends Component {
   static propTypes = {
     now: PropTypes.object.isRequired,
+    addTodo: PropTypes.func.isRequired,
   }
 
   state = {
@@ -21,7 +24,7 @@ class AddTask extends Component {
   }
 
   render() {
-    const { now } = this.props;
+    const { now, addTodo } = this.props;
     const { hover, inputTask } = this.state;
     const addTaskClass = classNames("is-size-6", {
       "add-task-hover": hover,
@@ -52,12 +55,17 @@ class AddTask extends Component {
     } else {
       return (
         <TaskInput 
-          now={now}
           onCancel={() => this.setState({inputTask: false})}
+          onSubmit={value => addTodo(value, new Date(Date.now()))}
+          name={now.format("MMM D")}
         />
       );
     }
   }
 }
 
-export default AddTask;
+const mapDispatchToProps = {
+  addTodo,
+};
+
+export default connect(null, mapDispatchToProps)(AddTask);

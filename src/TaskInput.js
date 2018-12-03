@@ -1,38 +1,42 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addTodo} from './actions';
 
 class TaskInput extends Component {
   static propTypes = {
-    now: PropTypes.object.isRequired,
+    initialValue: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     onCancel: PropTypes.func.isRequired,
-    addTodo: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    submitName: PropTypes.string.isRequired,
+  };
+
+  static defaultProps = {
+    initialValue: '',
+    submitName: 'Add Task',
   };
 
   state = {
-    value: '',
+    value: this.props.initialValue,
   };
 
   onChange(e) {
-    console.log(e);
     const {value} = e.currentTarget;
     this.setState({value});
   }
 
   submit() {
     const {value} = this.state;
-    const {addTodo} = this.props;
+    const {onSubmit} = this.props;
     if (!value) {
       // don't do anything if there's no input
       return;
     }
-    addTodo(value, new Date(Date.now()));
+    onSubmit(value);
     this.setState({ value: '' });
   }
 
   renderInput() {
-    const {now} = this.props;
+    const {name} = this.props;
     const {value} = this.state;
     const defaultValue = value === '';
     const placeholder = 
@@ -56,7 +60,7 @@ class TaskInput extends Component {
                 ref={ref => { this.inputRef = ref; }}/>
             </td>
             <td>
-              <div id="date">{now.format("MMM D")}</div>
+              <div id="date">{name}</div>
             </td>
           </tr>
           </tbody>
@@ -66,7 +70,7 @@ class TaskInput extends Component {
   }
 
   renderButtons() {
-    const {onCancel} = this.props;
+    const {onCancel, submitName} = this.props;
     return (
       <table style={{width: "100%"}} className="my-submit-table">
         <tbody>
@@ -80,7 +84,7 @@ class TaskInput extends Component {
                   this.inputRef.focus();
                 }
               }}
-            >Add Task</a>
+            >{submitName}</a>
             <a 
               className="button my-cancel-button"
               onClick={onCancel}
@@ -107,12 +111,6 @@ class TaskInput extends Component {
       </div>
     );
   }
-
 }
 
-// Object of action creators
-const mapDispatchToProps = {
-  addTodo,
-};
-
-export default connect(null, mapDispatchToProps)(TaskInput);
+export default TaskInput;

@@ -17,7 +17,21 @@ const store = applyMiddleware(thunkMiddleware)(createStore)((state = initialStat
       return {...state, todos: state.todos.concat(action.todos)};
 
     case "COMPLETE_TODO":
-      return {...state, todos: state.todos.filter(todo => todo.name !== action.name)};
+      return {...state, todos: state.todos.filter(todo => todo.id !== action.id)};
+
+   case "UPDATE_TODO":
+      const todo = state.todos.find(todo => todo.id === action.update.id);
+      return {
+        ...state,
+        todos: state.todos
+          .filter(todo => todo.id !== action.update.id)
+          .concat({
+            id: todo.id,
+            name: action.update.name || todo.name,
+            due: action.update.due || todo.due,
+            completed: action.update.completed || todo.completed,
+          }),
+      };
 
     default:
       return state;
@@ -41,8 +55,8 @@ fetch('/api/todos')
     if (response.todos) {
       store.dispatch({
         type: "ADD_TODOS",
-        todos: response.todos.map(({name, dueNumber}) => ({name, due: new Date(dueNumber)}))});
+        todos: response.todos.map(({name, dueNumber, id, completed}) => ({name, due: new Date(dueNumber), id, completed}))});
     } else {
-      console.log(response.error);
+      // TODO handle errors
     }
   });

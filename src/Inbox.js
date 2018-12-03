@@ -29,8 +29,8 @@ class Inbox extends Component {
           </div>
         </div>
         <ul style={{marginLeft: "-1.70em"}}>
-        {this.props.todos.map(todo => (
-          <li key={todo.name}>
+        {this.props.todos.filter(todo => !todo.completed).map(todo => (
+          <li key={todo.id}>
             <TodoItem todo={todo} />
           </li>
         ))}
