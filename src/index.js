@@ -4,13 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 const initialState = {
   todos: [],
 };
 
-const store = createStore((state = initialState, action) => {
+const store = applyMiddleware(thunkMiddleware)(createStore)((state = initialState, action) => {
   switch (action.type) {
     case "ADD_TODOS":
       return {...state, todos: state.todos.concat(action.todos)};
@@ -36,6 +37,12 @@ serviceWorker.unregister();
 
 fetch('/api/todos')
   .then(response => response.json())
-  .then(response => store.dispatch({
-    type: "ADD_TODOS",
-    todos: response.todos.map(({name, dueNumber}) => ({name, due: new Date(dueNumber)}))}));
+  .then(response => {
+    if (response.todos) {
+      store.dispatch({
+        type: "ADD_TODOS",
+        todos: response.todos.map(({name, dueNumber}) => ({name, due: new Date(dueNumber)}))});
+    } else {
+      console.log(response.error);
+    }
+  });

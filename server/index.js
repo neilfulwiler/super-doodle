@@ -1,18 +1,44 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+const os = require('os');
+const fs = require('fs');
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/api/todos', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({
-    todos: [
-      {name: 'do laundry', due: Date.now()},
-      {name: 'write some code', due: Date.parse("November 30, 2018")},
-      {name: 'clean my room', due: Date.parse("December 31, 2018")},
-    ]
-  }));
+  const homedir = os.homedir();
+  const todosPath = path.join(homedir, '.todos');
+  fs.readFile(todosPath, (err, data) => {
+    if (err) {
+      res.send(JSON.stringify({ error: err }));
+    } else {
+      const todos = data
+        .toString('utf8')
+        .split('\n')
+        .filter(x => !!x)
+        .map(todo => {
+          const [name, due] = todo.split(',')
+          return {name, due: parseInt(due)};
+        });
+      res.send(JSON.stringify({ todos }));
+    }
+  });
+});
+
+app.post('/api/todos/create', (req, res) => {
+  const {name, due} = req.body.todo;
+  const homedir = os.homedir();
+  const todosPath = path.join(homedir, '.todos');
+  fs.appendFile(todosPath, name + ',' + due + '\n', error => {
+    if (error) {
+      res.status(500).render('error', {error});
+    } else {
+      res.status(200).send('OK');
+    }
+  });
 });
 
 app.listen(3001, () =>
