@@ -1,18 +1,34 @@
 $redlike: #db4c3f
 $navbar-height: 3.25rem
 $whitelike: #fff
+$greylike: #fafafa
 
 .App
   text-align: center
-  background-color: #fafafa
+  background-color: $greylike
 
 .App-logo
   animation: App-logo-spin infinite 20s linear
   height: 40vmin
 
+.todo-quick-find
+  color: $greylike
+
+.is-bold
+  font-weight: bold
+
 .todo-navbar
   background-color: $redlike
   box-shadow: 0 1px 2px rgba(0,0,0,0.15)
+  z-index: 30
+  // I have ZERO idea why this makes the zindex take effect
+  // but thats what seems to be happening
+  position: relative
+  width: 100%
+  height: 58px
+
+.todo-navbar-item
+  paddingTop: 7px
 
 .my-small-text
   font-size: 12px
@@ -77,6 +93,10 @@ $whitelike: #fff
 .inbox-container
   text-align: left
 
+.my-todo-container
+  &.exiting
+    animation: fadeout 500ms
+
 .my-todo
   padding-top: 1em
   padding-bottom: 1em
@@ -94,8 +114,11 @@ $whitelike: #fff
   opacity: 0
   transition: .3s
   margin-left: -12px
-  margin-top: 6px
+  margin-top: 4px
   cursor: pointer
+  vertical-align: text-top
+  position: relative
+  top: 3px
 
 .my-todo-check-mark:hover
   opacity: 1
@@ -211,3 +234,9 @@ $whitelike: #fff
       opacity: 0
     to
       opacity: 1
+
+@keyframes fadeout
+    from
+      opacity: 1
+    to
+      opacity: 0
