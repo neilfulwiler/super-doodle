@@ -6,14 +6,13 @@ const fs = require('fs');
 
 const app = express();
 app.use(bodyParser.json());
-
+app.set('view engine', 'html');
 app.get('/api/todos', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   readTodos((err, todos) => {
     if (handleError(res, err)) {
       return;
     }
-
     res.send(JSON.stringify({ todos }));
   });
 });
@@ -40,8 +39,9 @@ app.post('/api/todos/create', (req, res) => {
  * there was no error
  */
 function handleError(res, error) {
+  console.log(error)
   if (error) {
-    res.status(500).render('error', {error});
+    res.status(500).json('error', {error});
     return true;
   }
   return false;
