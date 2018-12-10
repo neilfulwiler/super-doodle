@@ -22,7 +22,7 @@ class Menu extends Component {
       [
         "Inbox",
         <span className="navbar-icons fas fa-inbox"/>, 
-        <span className="is-size-7" style={{color: "#777", paddingLeft: "1em"}}>{todos.length}</span>
+        <span className="is-size-7" style={{color: "#777", paddingLeft: "1em"}}>{todos.filter(todo => !todo.completed).length}</span>
       ],
       ["Today", <span className="navbar-icons fas fa-calendar"/>],
       ["Next 7 Days", <span className="navbar-icons fas fa-calendar-alt"/>],
