@@ -12,32 +12,43 @@ class Inbox extends Component {
 
   render() {
     const now = moment();
-    return (
-      <div className="inbox-container">
-        <div className="title inbox-title">
-          <span className="is-size-4" style={{paddingTop: "6px"}}>Inbox</span>
-          <div className="inbox-title-right">
-            <div className="inbox-title-right-item" 
+
+    const view = "Inbox";
+    const title = 
+      <div className="title">
+          <span className="is-size-4" style={{paddingTop: "6px"}}>{view}</span>
+          <div className="title-right">
+            <div className="title-right-item" 
               style={{fontSize: "14px", marginTop: ".4em"}} 
               data-tip="Project comments">
               <i className="far fa-comment-alt"></i>
                <ReactTooltip effect="solid"/>
             </div>
-            <div className="inbox-title-right-item" style={{paddingLeft: "1em", marginTop: "-.1em"}}>
-              <img src="/ellipsis.png" alt="" style={{width: "20px"}}/>
+            <div className="title-right-item" style={{paddingLeft: "1em", marginTop: "-.1em"}}>
+              <img src="/ellipsis.png" style={{width: "20px"}}/>
             </div>
           </div>
         </div>
-        <ul style={{marginLeft: "-1.70em"}}>
+    ;
+
+    const list = 
+      <ul style={{marginLeft: "-1.70em"}}>
         {this.props.todos.filter(todo => !todo.completed).map(todo => (
           <li key={todo.id}>
             <TodoItem todo={todo} />
           </li>
         ))}
         </ul>
-        <div style={{paddingTop: "1em"}}>
-          <AddTask now={now} />
-        </div>
+    ;
+
+    const addTask = <div style={{paddingTop: "1em"}}> <AddTask now={now} /> </div>;
+
+
+    return (
+      <div className="inbox-container">
+        {title}
+        {list}
+        {addTask}
       </div>
     );
   }
