@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AddTask from './AddTask';
 import moment from 'moment';
+import { TodoType } from './TodoItem';
+
 
 class Today extends Component {
+  static propTypes = {
+    todos: PropTypes.arrayOf(TodoType).isRequired,
+  }
+
   render() {
     const now = moment();
     return (

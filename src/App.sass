@@ -2,10 +2,14 @@ $redlike: #db4c3f
 $navbar-height: 3.25rem
 $whitelike: #fff
 $greylike: #fafafa
+$soft: #aaa
 
 .App
   text-align: center
   background-color: $greylike
+
+.is-soft
+  color: $soft
 
 .App-logo
   animation: App-logo-spin infinite 20s linear
@@ -103,6 +107,13 @@ $greylike: #fafafa
   border-bottom: 1px solid #f1f1f1
   display: flex
   width: 100%
+
+.my-todo-icon
+  color: $soft
+  cursor: pointer
+
+.my-todo-icon:hover
+  color: black
 
 .my-todo-circle
   cursor: pointer
@@ -221,6 +232,17 @@ $greylike: #fafafa
 
     .icons:hover
       opacity: 1
+
+// HOVER CARD
+
+.hover-card
+  background-color: $whitelike
+  position: absolute
+  box-shadow: 0 0 24px rgba(0,0,0,0.15)
+  border-radius: 3px
+  border: 1px solid $greylike
+
+// ANIMATIONS
 
 @keyframes App-logo-spin
   from

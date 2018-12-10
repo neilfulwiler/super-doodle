@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { updateTodo, completeTodo } from './actions';
 import TaskInput from './TaskInput';
+import HoverCard from './HoverCard';
 
 
 export const TodoType = PropTypes.shape({
@@ -33,6 +34,7 @@ class TodoItem extends Component {
   state = {
     hover: false,
     editing: false,
+    showCalendar: false,
     /**
      * so the way that we're doing animation for the todo
      * getting completed is by setting this state flag
@@ -60,17 +62,19 @@ class TodoItem extends Component {
     const {todo, updateTodo} = this.props;
     const {id, name, due} = todo;
     return (
-      <TaskInput
-        initialValue={name}
-        submitName="Save"
-        name="Schedule"
-        onCancel={() => this.setState({editing: false})}
-        onSubmit={value => updateTodo(id, value, due)} />
+      <div style={{paddingLeft: "26px"}}>
+        <TaskInput
+          initialValue={name}
+          submitName="Save"
+          name="Schedule"
+          onCancel={() => this.setState({editing: false})}
+          onSubmit={value => updateTodo(id, value, due)} />
+      </div>
     );
   }
 
   renderNormal() {
-    const {hover, exiting} = this.state;
+    const {hover, exiting, showCalendar} = this.state;
     const showOnHover = hover ? {} : { visibility: "hidden" }
     const {todo, completeTodo} = this.props;
     const {id, name, due} = todo;
@@ -84,6 +88,24 @@ class TodoItem extends Component {
         >Today</span>
         <ReactTooltip effect="solid"/>
       </span>);
+    } else if (hover) {
+      var calendar;
+      if (showCalendar) {
+        calendar = <HoverCard>yup this is a calendar</HoverCard>;
+      } else {
+        calendar = [];
+      }
+      day = (
+        <div onClick={e => {
+          e.stopPropagation();
+          this.setState(state => ({ showCalendar: !state.showCalendar }));
+        }}>
+          <span className="my-todo-icon">
+            <i className="far fa-calendar"></i>
+            {calendar}             
+          </span>
+        </div>
+      );
     } else {
       day = [];
     }
@@ -99,7 +121,7 @@ class TodoItem extends Component {
         className={classNames("my-todo-container", {exiting})}
         onClick={() => this.setState({ editing: true })}
       >
-        <span className="my-todo-moving-grip" style={showOnHover}><i className="fas fa-grip-vertical"></i></span>
+        <span className="my-todo-moving-grip my-todo-icon" style={showOnHover}><i className="fas fa-grip-vertical"></i></span>
         <span className="my-todo" style={{display: "flex", justifyContent: "space-between"}}>
           <span style={{flex: "1", display: "flex"}}>
             <div onClick={e => { 
@@ -115,13 +137,13 @@ class TodoItem extends Component {
               </div>
             </div>
             <div className="my-todo-name">{name}</div>
-            <span className="my-todo-comment" style={showOnHover}><i className="far fa-comment-alt"></i></span>
+            <span className="my-todo-comment my-todo-icon" style={showOnHover}><i className="far fa-comment-alt"></i></span>
           </span>
           <span display={{flex: "1"}}>
             {day}
           </span>
         </span>
-        <span className="my-todo-ellipsis" style={showOnHover}><i className="fas fa-ellipsis-h"></i></span>
+        <span className="my-todo-ellipsis my-todo-icon" style={showOnHover}><i className="fas fa-ellipsis-h"></i></span>
       </div>
     );
   }
