@@ -99,7 +99,7 @@ $soft: #aaa
 
 .my-todo-container
   &.exiting
-    animation: fadeout 500ms
+    animation: fadeout 1000ms
 
 .my-todo
   padding-top: 1em
@@ -241,6 +241,72 @@ $soft: #aaa
   box-shadow: 0 0 24px rgba(0,0,0,0.15)
   border-radius: 3px
   border: 1px solid $greylike
+
+/* NEXT 7 DAYS */
+.next7days-container
+  text-align: left
+
+.add-task-hover
+  color: #db4c3f
+
+.add-task-no-hover
+  color: #808080
+
+.add-task-icon
+  color: $redlike
+
+.my-task-table
+  border-radius: 3px
+  border: 1px solid #ddd
+  padding: 1px
+
+  .my-placeholder
+    position: absolute
+    padding-left: .5em
+    padding-top: .25em
+    color: #ccc
+    pointer-events: none
+    animation: fadein 200ms
+
+  td
+    vertical-align: baseline
+
+  input
+    padding: .5em
+    border: none
+    font-size: inherit
+    outline: none
+
+  #date
+    padding: .5em
+    border-left: 1px solid #eee
+
+  .input-default-value
+    color: grey
+
+.my-submit-table
+  margin-top: 1em
+
+  .my-add-task-button
+    color: white
+    font-weight: 400 
+    background: #db4c3f
+    border: none
+
+  .my-add-task-button:hover
+    background: darken(#db4c3f, 10%)
+
+  .my-cancel-button
+    border: none
+
+  .my-cancel-button:hover
+    text-decoration: underline
+
+  .submit
+    text-align: left
+
+    span
+      vertical-align: center
 
 // ANIMATIONS
 

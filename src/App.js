@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Inbox from './Inbox';
 import Today from './Today';
 import Menu from './Menu';
+import Next7Days from './Next7Days';
 import { TodoType } from './TodoItem';
 import { connect } from 'react-redux';
 import './App.sass';
@@ -23,6 +24,8 @@ class App extends Component {
     var content;
     if (selected === 'Today') {
       content = <Today />;
+    } else if (selected === 'Next 7 Days') {
+      content = <Next7Days todos ={todos} />;
     } else {
       content = <Inbox todos={todos} />;
     }
