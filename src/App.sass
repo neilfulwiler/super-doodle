@@ -74,24 +74,24 @@ $greylike: #fafafa
   border-left: 1px solid #f1f1f1
   border-right: 1px solid #f1f1f1
 
-/* INBOX */
+/* VIEWS */
 
-.inbox-title
+.view-container
+  text-align: left
+
+.title
   display: flex
   justify-content: space-between
   margin-bottom: 12px
 
-.inbox-title-right
+.title-right
   display: flex
   margin-top: -4px
   align-items: center
 
-.inbox-title-right-item
+.title-right-item
   cursor: pointer
   flex: 1 
-
-.inbox-container
-  text-align: left
 
 .my-todo-container
   &.exiting
@@ -141,12 +141,6 @@ $greylike: #fafafa
   margin-top: 1em
   margin-right: -1.25em
   padding-left: .5em
-
-
-/* TODAY */
-
-.today-container
-  text-align: left
 
 .add-task-hover
   color: #db4c3f
@@ -221,74 +215,6 @@ $greylike: #fafafa
 
     .icons:hover
       opacity: 1
-
-
-/* NEXT 7 DAYS */
-.next7days-container
-  text-align: left
-
-.add-task-hover
-  color: #db4c3f
-
-.add-task-no-hover
-  color: #808080
-
-.add-task-icon
-  color: $redlike
-
-.my-task-table
-  border-radius: 3px
-  border: 1px solid #ddd
-  padding: 1px
-
-  .my-placeholder
-    position: absolute
-    padding-left: .5em
-    padding-top: .25em
-    color: #ccc
-    pointer-events: none
-    animation: fadein 200ms
-
-  td
-    vertical-align: baseline
-
-  input
-    padding: .5em
-    border: none
-    font-size: inherit
-    outline: none
-
-  #date
-    padding: .5em
-    border-left: 1px solid #eee
-
-  .input-default-value
-    color: grey
-
-.my-submit-table
-  margin-top: 1em
-
-  .my-add-task-button
-    color: white
-    font-weight: 400 
-    background: #db4c3f
-    border: none
-
-  .my-add-task-button:hover
-    background: darken(#db4c3f, 10%)
-
-  .my-cancel-button
-    border: none
-
-  .my-cancel-button:hover
-    text-decoration: underline
-
-  .submit
-    text-align: left
-
-    span
-      vertical-align: center
-
 
 @keyframes App-logo-spin
   from

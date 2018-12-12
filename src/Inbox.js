@@ -45,7 +45,7 @@ class Inbox extends Component {
 
 
     return (
-      <div className="inbox-container">
+      <div className="view-container">
         {title}
         {list}
         {addTask}
