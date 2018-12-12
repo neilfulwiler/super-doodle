@@ -29,8 +29,7 @@ class Inbox extends Component {
             </div>
           </div>
         </div>
-    ;
-
+    
     const list = 
       <ul style={{marginLeft: "-1.70em"}}>
         {this.props.todos.filter(todo => !todo.completed).map(todo => (
@@ -39,10 +38,8 @@ class Inbox extends Component {
           </li>
         ))}
         </ul>
-    ;
 
-    const addTask = <div style={{paddingTop: "1em"}}> <AddTask now={now} /> </div>;
-
+    const addTask = <div style={{paddingTop: "1em"}}> <AddTask now={now} /> </div>
 
     return (
       <div className="view-container">
