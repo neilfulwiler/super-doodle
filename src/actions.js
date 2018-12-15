@@ -1,6 +1,5 @@
 export const addTodo = (name, due) => async (dispatch) => {
   const id = Math.floor(Math.random() * 1000000000);
-  const completed = false;
   const settings = {
     method: 'POST',
     headers: {
@@ -16,7 +15,7 @@ export const addTodo = (name, due) => async (dispatch) => {
   const resp = await fetch('api/todos/create', settings);
   if (resp.ok) {
     dispatch({
-      todos: [{name, due, id, completed}],
+      todos: [{name, due, id, completed: false}],
       type: 'ADD_TODOS'
     });
   } else {
