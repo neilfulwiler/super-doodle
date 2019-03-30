@@ -78,24 +78,24 @@ $soft: #aaa
   border-left: 1px solid #f1f1f1
   border-right: 1px solid #f1f1f1
 
-/* INBOX */
+/* VIEWS */
 
-.inbox-title
+.view-container
+  text-align: left
+
+.title
   display: flex
   justify-content: space-between
   margin-bottom: 12px
 
-.inbox-title-right
+.title-right
   display: flex
   margin-top: -4px
   align-items: center
 
-.inbox-title-right-item
+.title-right-item
   cursor: pointer
   flex: 1 
-
-.inbox-container
-  text-align: left
 
 .my-todo-container
   &.exiting
@@ -152,12 +152,6 @@ $soft: #aaa
   margin-top: 1em
   margin-right: -1.25em
   padding-left: .5em
-
-
-/* TODAY */
-
-.today-container
-  text-align: left
 
 .add-task-hover
   color: #db4c3f
