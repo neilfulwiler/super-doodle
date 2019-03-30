@@ -36,7 +36,7 @@ class TaskInput extends Component {
   }
 
   renderInput() {
-    const {name} = this.props;
+    const {name, onCancel} = this.props;
     const {value} = this.state;
     const defaultValue = value === '';
     const placeholder = 
@@ -53,11 +53,25 @@ class TaskInput extends Component {
               <input 
                 tabIndex="1"
                 value={value}
-                onKeyPress={e => { if (e.key === 'Enter') { this.submit(); }}}
+                onKeyDown={e => {
+                  if (e.key === 'Escape') {
+                    onCancel();
+                  }
+                }}
+                onKeyPress={e => { 
+                  if (e.key === 'Enter') { 
+                    this.submit(); 
+                  }
+                }}
                 onChange={e => this.onChange(e)}
                 className="my-input"
                 style={{width: "100%"}}
-                ref={ref => { this.inputRef = ref; }}/>
+                ref={ref => { 
+                  if (ref) {
+                    ref.focus();
+                  }
+                  this.inputRef = ref; 
+                }}/>
             </td>
             <td>
               <div id="date">{name}</div>
