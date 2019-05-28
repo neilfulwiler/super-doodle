@@ -30,7 +30,7 @@ app.post('/api/todos/create', (req, res) => {
       }
       res.status(200).send('OK');
     });
-  }); 
+  });
 });
 
 /**
@@ -39,7 +39,7 @@ app.post('/api/todos/create', (req, res) => {
  */
 function handleError(res, error) {
   if (error) {
-    res.status(500).json('error', {error});
+    res.status(500).json({error});
     return true;
   }
   return false;
@@ -60,9 +60,9 @@ function readTodos(cb) {
         .map(todo => {
           const [id, name, due, completed] = todo.split(',')
           return {
-            name, 
+            name,
             due: parseInt(due),
-            id: parseInt(id), 
+            id: parseInt(id),
             completed: completed === "1" ? true : false,
           };
         });
@@ -75,7 +75,7 @@ function writeTodos(todos, cb) {
   const homedir = os.homedir();
   const todosPath = path.join(homedir, '.todos');
   fs.writeFile(
-    todosPath, 
+    todosPath,
     todos.map(
       ({id, name, due, completed}) => {
         return [id, name, due, completed ? 1 : 0].join(',');
@@ -96,8 +96,8 @@ app.post('/api/todos/update', (req, res) => {
       .concat({
         id,
         name: name || todo.name,
-        due: due || todo.due, 
-        completed: completed || todo.completed, 
+        due: due || todo.due,
+        completed: completed || todo.completed,
       });
     writeTodos(updated, err => {
       if (handleError(res, err)) {
@@ -106,7 +106,7 @@ app.post('/api/todos/update', (req, res) => {
 
       res.status(200).send('OK');
     });
-  }); 
+  });
 });
 
 app.listen(3001, () =>

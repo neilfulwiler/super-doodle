@@ -19,8 +19,11 @@ class Today extends Component {
           <span className="is-size-7" style={{paddingLeft: "10px", color: "#808080"}}>
             {now.format("ddd MMM D")}
           </span>
+          
         </div>
-        <AddTask now={now} />
+        <div style={{paddingTop: "1em"}}>
+          <AddTask now={now} />
+        </div>
       </div>
     );
   }
