@@ -1,5 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
+
+class ProjectSelector extends Component {
+  static propTypes = {
+    select: PropTypes.func.isRequired
+  };
+
+  render() {
+    const {select} = this.props;
+    return (
+      <table className="project-selector">
+      <tbody>
+      <tr><td onClick={() => select('hi')}>hi</td></tr>
+      <tr><td onClick={() => select('there')}>there</td></tr>
+      </tbody>
+      </table>);
+  }
+}
 
 class TaskInput extends Component {
   static propTypes = {
@@ -17,6 +35,8 @@ class TaskInput extends Component {
 
   state = {
     value: this.props.initialValue,
+    selectProject: true,
+    projects: [],
   };
 
   onChange(e) {
@@ -37,7 +57,7 @@ class TaskInput extends Component {
 
   renderInput() {
     const {name, onCancel} = this.props;
-    const {value} = this.state;
+    const {value, projects} = this.state;
     const defaultValue = value === '';
     const placeholder = 
       defaultValue 
@@ -50,28 +70,34 @@ class TaskInput extends Component {
           <tr>
             <td>
               {placeholder}
-              <input 
-                tabIndex="1"
-                value={value}
-                onKeyDown={e => {
-                  if (e.key === 'Escape') {
-                    onCancel();
-                  }
-                }}
-                onKeyPress={e => { 
-                  if (e.key === 'Enter') { 
-                    this.submit(); 
-                  }
-                }}
-                onChange={e => this.onChange(e)}
-                className="my-input"
-                style={{width: "100%"}}
-                ref={ref => { 
-                  if (ref) {
-                    ref.focus();
-                  }
-                  this.inputRef = ref; 
-                }}/>
+              <span style={{width: "100%"}}>
+                <input 
+                  tabIndex="1"
+                  value={value}
+                  onKeyDown={e => {
+                    if (e.key === 'Escape') {
+                      onCancel();
+                    }
+                  }}
+                  onKeyPress={e => { 
+                    if (e.key === 'Enter') { 
+                      this.submit(); 
+                    }
+                  }}
+                  onChange={e => this.onChange(e)}
+                  className="my-input"
+                  ref={ref => { 
+                    if (ref) {
+                      ref.focus();
+                    }
+                    this.inputRef = ref; 
+                  }}/>
+                  <ul className="project-list">
+                  {projects.map(project => 
+                    <li className="project" key={project}>{project}</li>
+                  )}
+                  </ul>
+                </span>
             </td>
             <td>
               <div id="date">{name}</div>
@@ -85,33 +111,54 @@ class TaskInput extends Component {
 
   renderButtons() {
     const {onCancel, submitName} = this.props;
+    const {selectProject, projects} = this.state;
     return (
-      <table style={{width: "100%"}} className="my-submit-table">
-        <tbody>
-        <tr>
-          <td className="submit">
-            <a 
-              className="button my-add-task-button"
-              onClick={() => {
-                this.submit();
-                if (this.inputRef !== null) {
-                  this.inputRef.focus();
-                }
-              }}
-            >{submitName}</a>
-            <a 
-              className="button my-cancel-button"
-              onClick={onCancel}
-            >Cancel</a>
-          </td>
-          <td className="extra">
-            <span className="icons"><i className="fas fa-list"></i></span>
-            <span className="icons"><i className="far fa-clock"></i></span>
-            <span className="icons"><i className="far fa-flag"></i></span> 
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <span>
+        <table style={{width: "100%"}} className="my-submit-table">
+          <tbody>
+          <tr>
+            <td className="submit">
+              <a 
+                className="button my-add-task-button"
+                onClick={() => {
+                  this.submit();
+                  if (this.inputRef !== null) {
+                    this.inputRef.focus();
+                  }
+                }}
+              >{submitName}</a>
+              <a 
+                className="button my-cancel-button"
+                onClick={onCancel}
+              >Cancel</a>
+            </td>
+            <td className="extra">
+              <span 
+                className="icons" 
+                data-tip="Project" 
+                style={{position: "relative"}}
+                onClick={() => this.setState(state => ({selectProject: !state.selectProject}))} >
+                <i className="fas fa-list"></i>
+                {selectProject 
+                  ? (
+                    <div style={{width: "200px", height: "200px", position: "absolute"}}>
+                    <ProjectSelector select={project => this.setState(state => ({projects: state.projects.concat([project])}))}/>
+                    </div>
+                    )
+                  : []}
+              </span>
+              <span className="icons" data-tip="Reminders">
+                <i className="far fa-clock"></i>
+              </span>
+              <span className="icons" data-tip="Priority">
+                <i className="far fa-flag"></i>
+              </span> 
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <ReactTooltip effect="solid"/>
+      </span>
     );
   }
 

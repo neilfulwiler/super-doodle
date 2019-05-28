@@ -24,19 +24,19 @@ export const addTodo = (name, due) => async (dispatch) => {
   }
 };
 
-export const updateTodo = (id, name) => async (dispatch) => {
+export const updateTodo = (id, name, due, tags) => async (dispatch) => {
   const settings = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({update: {id, name}}),
+    body: JSON.stringify({update: {id, name, due, tags}}),
   };
   const resp = await fetch('api/todos/update', settings);
   if (resp.ok) {
     dispatch({
-      update: {id, name},
+      update: {id, name, due, tags},
       type: 'UPDATE_TODO'
     });
   } else {

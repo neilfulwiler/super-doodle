@@ -6,7 +6,9 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { updateTodo, completeTodo } from './actions';
 import TaskInput from './TaskInput';
-import HoverCard from './HoverCard';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 
 export const TodoType = PropTypes.shape({
@@ -24,6 +26,30 @@ function getDay(date: Date): String {
   return date.toDateString();
 }
 
+class TodoDatePicker extends Component {
+  state = {
+    startDate: new Date()
+  }
+ 
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+  render() {
+    const {startDate} = this.state;
+    return (
+      <div style={{width: "200px", height: "200px", position: "absolute"}}>
+        <DatePicker 
+          selected={startDate}
+          onChange={date => this.setState({startDate: date})}
+          inline />
+      </div>
+    );
+  }
+}
+
 class TodoItem extends Component {
   static propTypes = {
     todo: TodoType.isRequired,
@@ -32,6 +58,7 @@ class TodoItem extends Component {
   }
 
   state = {
+    selected: false,
     hover: false,
     editing: false,
     showCalendar: false,
@@ -48,12 +75,6 @@ class TodoItem extends Component {
     exiting: undefined,
   }
 
-  toggleHover() {
-    this.setState(state => ({
-      hover: !state.hover,
-    }));
-  }
-
   componentWillReceiveProps() {
     this.setState({editing: false});
   }
@@ -66,9 +87,9 @@ class TodoItem extends Component {
         <TaskInput
           initialValue={name}
           submitName="Save"
-          name="Schedule"
+          name={moment(due).format("MMM D")}
           onCancel={() => this.setState({editing: false})}
-          onSubmit={value => updateTodo(id, value, due)} />
+          onSubmit={(name, due, tags) => updateTodo(id, name, due, tags)} />
       </div>
     );
   }
@@ -91,14 +112,19 @@ class TodoItem extends Component {
     } else if (hover) {
       var calendar;
       if (showCalendar) {
-        calendar = <HoverCard>yup this is a calendar</HoverCard>;
+        calendar = (
+          <TodoDatePicker />
+        );
       } else {
         calendar = [];
       }
       day = (
         <div onClick={e => {
           e.stopPropagation();
-          this.setState(state => ({ showCalendar: !state.showCalendar }));
+          this.setState(state => ({ 
+            showCalendar: !state.showCalendar,
+            selected: !state.selected, 
+          }));
         }}>
           <span className="my-todo-icon">
             <i className="far fa-calendar"></i>
@@ -112,8 +138,8 @@ class TodoItem extends Component {
 
     return (
       <div 
-        onMouseEnter={() => this.toggleHover()}
-        onMouseLeave={() => this.toggleHover()}
+        onMouseOver={() => this.setState({hover: true})}
+        onMouseLeave={() => this.setState({hover: false})}
         style={{
           display: "flex",
           cursor: "text",
@@ -149,7 +175,8 @@ class TodoItem extends Component {
   }
 
   render() {
-    return this.state.editing ? this.renderEditing() : this.renderNormal();
+    const {name} = this.props.todo;
+    return name === 'book hostel in Stockholm on Friday' || this.state.editing ? this.renderEditing() : this.renderNormal();
   }
 }
 

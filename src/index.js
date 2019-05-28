@@ -5,13 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
 const initialState = {
   todos: [],
 };
 
-const store = applyMiddleware(thunkMiddleware)(createStore)((state = initialState, action) => {
+const store = applyMiddleware(thunkMiddleware, logger)(createStore)((state = initialState, action) => {
   switch (action.type) {
     case "ADD_TODOS":
       return {...state, todos: state.todos.concat(action.todos)};
@@ -55,7 +56,7 @@ fetch('/api/todos')
     if (response.todos) {
       store.dispatch({
         type: "ADD_TODOS",
-        todos: response.todos.map(({name, dueNumber, id, completed}) => ({name, due: new Date(dueNumber), id, completed}))});
+        todos: response.todos.map(({name, due, id, completed}) => ({name, due: new Date(due), id, completed}))});
     } else {
       // TODO handle errors
     }
